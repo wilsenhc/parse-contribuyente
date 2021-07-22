@@ -1,0 +1,26 @@
+{
+    "name": "trienlace/parse-contribuyente",
+    "description": "Herramienta para realizar parsing de los datos de un contribuyente a partir del HTML de respuesta de la p\u0000gina de busqueda de contribuyentes en SENIAT",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Trienlace",
+            "email": "desarrollo@trienlace.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "paquettg/php-html-parser": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Trienlace\\ParseContribuyente\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
