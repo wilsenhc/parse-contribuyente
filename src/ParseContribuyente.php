@@ -217,6 +217,7 @@ class ParseContribuyente
 
         $actividadEconomicaText = $dom->find('font')->firstChild()->text();
         $actividadEconomicaText = str_replace('Actividad Económica:', '', $actividadEconomicaText);
+        $actividadEconomicaText = str_replace('Actividad EconÃ³mica:', '', $actividadEconomicaText);
 
         return trim($actividadEconomicaText);
     }
@@ -239,5 +240,20 @@ class ParseContribuyente
         $text = $dom->find('b')[0]->innerText();
 
         return str_contains($text, 'REGISTRO VENCIDO');
+    }
+
+    /**
+     * @return array
+    */
+    public function toArray()
+    {
+        return [
+            'rif'                   => $this->rif,
+            'razon_social'          => $this->razonSocial,
+            'nombre_comercial'      => $this->nombreComercial,
+            'firma_personal'        => $this->firmaPersonal,
+            'actividad_economica'   => $this->actividadEconomica,
+            'registro_vencido'      => $this->registroVencido,
+        ];
     }
 }
