@@ -239,7 +239,7 @@ class ParseContribuyente
 
         $text = $dom->find('b')[0]->innerText();
 
-        return str_contains($text, 'REGISTRO VENCIDO');
+        return mb_strpos($text, 'REGISTRO VENCIDO') !== false;
     }
 
     /**
