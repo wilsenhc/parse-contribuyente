@@ -25,9 +25,15 @@ class ParseContribuyente
     /** @var  boolean  $registroVencido */
     protected $registroVencido;
 
+    /** @var  string  $condicion */
+    protected $condicion;
+
     /** @var  string  $html */
     protected $html;
 
+    /**
+     * @param  string  $html Respuesta HTML completa del SENIAT
+     */
     public function __construct(string $html)
     {
         $this->html = $html;
@@ -73,6 +79,7 @@ class ParseContribuyente
             $firmaPersonal = [];
             $actividadEconomica = $this->parseActividadEconomica($dom->find('table')[2]);
             $registroVencido = $this->parseRegistroVencido($dom->find('table')[1]);
+            $condicion = $this->parseCondicion($dom->find('table')[2]);
         }
         elseif ($tablesCount == 4)
         {
@@ -82,6 +89,7 @@ class ParseContribuyente
             $firmaPersonal = $this->parseFirmaPersonal($dom->find('table')[2]);
             $actividadEconomica = $this->parseActividadEconomica($dom->find('table')[3]);
             $registroVencido = $this->parseRegistroVencido($dom->find('table')[1]);
+            $condicion = $this->parseCondicion($dom->find('table')[3]);
         }
 
         $this->rif                  = $rif;
@@ -90,6 +98,7 @@ class ParseContribuyente
         $this->firmaPersonal        = $firmaPersonal;
         $this->actividadEconomica   = $actividadEconomica;
         $this->registroVencido      = $registroVencido;
+        $this->condicion            = $condicion;
     }
 
     /**
@@ -243,6 +252,33 @@ class ParseContribuyente
     }
 
     /**
+     * @param  string  $table
+     *
+     * @return string
+     */
+    protected function parseCondicion(string $table)
+    {
+        $dom = new Dom();
+        $dom->setOptions(
+            (new Options())
+            ->setRemoveStyles(true)
+            ->setRemoveScripts(false)
+        );
+        $dom->loadStr($table);
+
+        $condicionText = $dom->find('font')->innerText();
+
+        $actividadEconomica = $this->parseActividadEconomica($table);
+
+        $condicionText = str_replace('Actividad Económica:', '', $condicionText);
+        $condicionText = str_replace('Actividad EconÃ³mica:', '', $condicionText);
+        $condicionText = str_replace('Condición:', '', $condicionText);
+        $condicionText = str_replace($actividadEconomica, '', $condicionText);
+
+        return trim($condicionText);
+    }
+
+    /**
      * @return array
     */
     public function toArray()
@@ -254,6 +290,7 @@ class ParseContribuyente
             'firma_personal'        => $this->firmaPersonal,
             'actividad_economica'   => $this->actividadEconomica,
             'registro_vencido'      => $this->registroVencido,
+            'condicion'             => $this->condicion,
         ];
     }
 }
