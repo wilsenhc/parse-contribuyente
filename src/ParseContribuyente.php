@@ -168,7 +168,7 @@ class ParseContribuyente
             $nombreComercial = $this->parseRazonSocial($table);
         }
 
-        if (str_contains($nombreComercial, 'SIN NOMBRE COMERCIAL'))
+        if (mb_strpos($nombreComercial, 'SIN NOMBRE COMERCIAL') !== false)
         {
             $nombreComercial = $this->parseRazonSocial($table);
         }
