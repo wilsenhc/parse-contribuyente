@@ -1,6 +1,5 @@
 <?php
 
-use Error;
 use Trienlace\ParseContribuyente\ParseContribuyente;
 
 test('parse contribuyente natural', function () {

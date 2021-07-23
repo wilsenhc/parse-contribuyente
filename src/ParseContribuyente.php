@@ -2,6 +2,7 @@
 
 namespace Trienlace\ParseContribuyente;
 
+use Error;
 use PHPHtmlParser\Dom;
 use PHPHtmlParser\Options;
 
@@ -53,6 +54,21 @@ class ParseContribuyente
         $body = str_replace('windows-1252', 'UTF-8', $body);
         $body = str_replace('</HTML>', '', $body);
         $body = trim($body);
+
+        if (mb_strpos($body, 'No existe el contribuyente solicitado') !== false)
+        {
+            throw new Error('El contribuyente no existe.');
+        }
+
+        if (mb_strpos($body, 'EL c�digo no coincide con la imagen.') !== false)
+        {
+            throw new Error('El código no coincide con la imagen.');
+        }
+
+        if (mb_strpos($body, 'EL código no coincide con la imagen.') !== false)
+        {
+            throw new Error('El código no coincide con la imagen.');
+        }
 
         $dom = new Dom();
         $dom->setOptions(
