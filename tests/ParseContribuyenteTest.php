@@ -1,5 +1,6 @@
 <?php
 
+use Error;
 use Trienlace\ParseContribuyente\ParseContribuyente;
 
 test('parse contribuyente natural', function () {
@@ -25,7 +26,7 @@ test('parse contribuyente natural', function () {
         ->condicion->toEqual('La condición de este contribuyente requiere la retención del 100% del impuesto causado, salvo que esté exento, no sujeto o demuestre ante el Agente de Retención del IVA que es un contribuyente exonerado.');
 });
 
-test('parse contribuyente juridico', function () {
+test('parse contribuyente jurídico', function () {
     $archivo = file_get_contents(__DIR__ . '/html/juridico.html');
 
     $parser = new ParseContribuyente($archivo);
@@ -42,7 +43,6 @@ test('parse contribuyente juridico', function () {
         ->registro_vencido->toEqual(false)
         ->condicion->toEqual('La condición de este contribuyente requiere la retención del 100% del impuesto causado, salvo que esté exento, no sujeto o demuestre ante el Agente de Retención del IVA que es un contribuyente exonerado.');
 });
-
 
 test('parse contribuyente gubernamental', function () {
     $archivo = file_get_contents(__DIR__ . '/html/gubernamental.html');
@@ -61,3 +61,18 @@ test('parse contribuyente gubernamental', function () {
         ->registro_vencido->toEqual(false)
         ->condicion->toEqual('Contribuyente Ordinario del IVA  y Agente de Retención del IVA  La condición de este contribuyente requiere la retención del 75% del impuesto causado, salvo que incurra en los supuestos establecidos para la retención del 100%.');
 });
+
+test('parse contribuyente no existe', function () {
+    $archivo = file_get_contents(__DIR__ . '/html/contribuyente-no-existe.html');
+
+    $parser = new ParseContribuyente($archivo);
+
+})->throws(Error::class, 'El contribuyente no existe.');
+
+test('parse código no coincide', function () {
+    $archivo = file_get_contents(__DIR__ . '/html/codigo-no-coincide.html');
+
+    $parser = new ParseContribuyente($archivo);
+
+})->throws(Error::class, 'El código no coincide con la imagen.');
+
