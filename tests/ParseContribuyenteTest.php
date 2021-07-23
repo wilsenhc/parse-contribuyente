@@ -15,6 +15,11 @@ test('parse contribuyente natural', function () {
         ->razon_social->toEqual('NICOLAS MADURO MOROS')
         ->nombre_comercial->toEqual('NICOLAS MADURO MOROS')
         ->firma_personal->toHaveCount(3)
+        ->firma_personal->toEqual([
+            ['nombre' => 'FIRMA PERSONAL 1'],
+            ['nombre' => 'FIRMA PERSONAL 2'],
+            ['nombre' => 'FIRMA PERSONAL 3'],
+        ])
         ->actividad_economica->toEqual('INFORMACION NO DISPONIBLE')
         ->registro_vencido->toEqual(false);
 });
