@@ -2,9 +2,11 @@
 
 namespace Trienlace\ParseContribuyente;
 
-use Error;
 use PHPHtmlParser\Dom;
 use PHPHtmlParser\Options;
+
+use Trienlace\ParseContribuyente\Exceptions\CodigoErroneoException;
+use Trienlace\ParseContribuyente\Exceptions\ContribuyenteNoExisteException;
 
 class ParseContribuyente
 {
@@ -57,17 +59,17 @@ class ParseContribuyente
 
         if (mb_strpos($body, 'No existe el contribuyente solicitado') !== false)
         {
-            throw new Error('El contribuyente no existe.');
+            throw new ContribuyenteNoExisteException('El contribuyente no existe.');
         }
 
         if (mb_strpos($body, 'EL c�digo no coincide con la imagen.') !== false)
         {
-            throw new Error('El código no coincide con la imagen.');
+            throw new CodigoErroneoException('El código no coincide con la imagen.');
         }
 
         if (mb_strpos($body, 'EL código no coincide con la imagen.') !== false)
         {
-            throw new Error('El código no coincide con la imagen.');
+            throw new CodigoErroneoException('El código no coincide con la imagen.');
         }
 
         $dom = new Dom();
