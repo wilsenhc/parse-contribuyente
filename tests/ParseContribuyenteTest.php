@@ -1,5 +1,7 @@
 <?php
 
+use Trienlace\ParseContribuyente\Exceptions\CodigoErroneoException;
+use Trienlace\ParseContribuyente\Exceptions\ContribuyenteNoExisteException;
 use Trienlace\ParseContribuyente\ParseContribuyente;
 
 test('parse contribuyente natural', function () {
@@ -66,12 +68,12 @@ test('parse contribuyente no existe', function () {
 
     $parser = new ParseContribuyente($archivo);
 
-})->throws(Error::class, 'El contribuyente no existe.');
+})->throws(ContribuyenteNoExisteException::class);
 
 test('parse código no coincide', function () {
     $archivo = file_get_contents(__DIR__ . '/html/codigo-no-coincide.html');
 
     $parser = new ParseContribuyente($archivo);
 
-})->throws(Error::class, 'El código no coincide con la imagen.');
+})->throws(CodigoErroneoException::class);
 
