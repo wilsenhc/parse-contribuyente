@@ -11,7 +11,8 @@
     ],
     "require": {
         "php": "^7.3|^8.0",
-        "paquettg/php-html-parser": "^3.1"
+        "paquettg/php-html-parser": "^3.1",
+        "phpstan/phpstan": "^0.12.93"
     },
     "autoload": {
         "psr-4": {
