@@ -19,7 +19,7 @@ class ParseContribuyente
     /** @var  string  $nombreComercial */
     protected $nombreComercial;
 
-    /** @var  array  $firmaPersonal */
+    /** @var  array<array<string, string>>  $firmaPersonal */
     protected $firmaPersonal;
 
     /** @var  string  $actividadEconomica */
@@ -47,7 +47,7 @@ class ParseContribuyente
     /**
      * @param  string  $body
      *
-     * @return array
+     * @return void
      */
     protected function parseContribuyente(string $body)
     {
@@ -88,6 +88,7 @@ class ParseContribuyente
         $firmaPersonal = [];
         $actividadEconomica = '';
         $registroVencido = false;
+        $condicion = '';
 
         if ($tablesCount == 3)
         {
@@ -163,7 +164,7 @@ class ParseContribuyente
 
         $razonSocial = explode('(', $fontText)[0];
 
-        return trim(explode('&nbsp;', $razonSocial)[1]);
+        return trim(strval(explode('&nbsp;', $razonSocial)[1]));
     }
 
     /**
@@ -206,7 +207,7 @@ class ParseContribuyente
     /**
      * @param  string  $table
      *
-     * @return \Illuminate\Support\Collection
+     * @return array<array<string, string>>
      */
     protected function parseFirmaPersonal(string $table)
     {
@@ -246,7 +247,7 @@ class ParseContribuyente
         $actividadEconomicaText = str_replace('Actividad Económica:', '', $actividadEconomicaText);
         $actividadEconomicaText = str_replace('Actividad EconÃ³mica:', '', $actividadEconomicaText);
 
-        return trim($actividadEconomicaText);
+        return trim(strval($actividadEconomicaText));
     }
 
     /**
@@ -293,13 +294,13 @@ class ParseContribuyente
         $condicionText = str_replace('Condición:', '', $condicionText);
         $condicionText = str_replace($actividadEconomica, '', $condicionText);
 
-        return trim($condicionText);
+        return trim(strval($condicionText));
     }
 
     /**
-     * @return array
+     * @return array<string, array<array<string, string>>|bool|string>
     */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'rif'                   => $this->rif,
