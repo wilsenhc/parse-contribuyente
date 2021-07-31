@@ -2,9 +2,11 @@
 
 namespace Trienlace\ParseContribuyente;
 
-use Error;
 use PHPHtmlParser\Dom;
 use PHPHtmlParser\Options;
+
+use Trienlace\ParseContribuyente\Exceptions\CodigoErroneoException;
+use Trienlace\ParseContribuyente\Exceptions\ContribuyenteNoExisteException;
 
 class ParseContribuyente
 {
@@ -17,7 +19,7 @@ class ParseContribuyente
     /** @var  string  $nombreComercial */
     protected $nombreComercial;
 
-    /** @var  array  $firmaPersonal */
+    /** @var  array<array<string, string>>  $firmaPersonal */
     protected $firmaPersonal;
 
     /** @var  string  $actividadEconomica */
@@ -45,7 +47,7 @@ class ParseContribuyente
     /**
      * @param  string  $body
      *
-     * @return array
+     * @return void
      */
     protected function parseContribuyente(string $body)
     {
@@ -57,17 +59,17 @@ class ParseContribuyente
 
         if (mb_strpos($body, 'No existe el contribuyente solicitado') !== false)
         {
-            throw new Error('El contribuyente no existe.');
+            throw new ContribuyenteNoExisteException('El contribuyente no existe.');
         }
 
         if (mb_strpos($body, 'EL c�digo no coincide con la imagen.') !== false)
         {
-            throw new Error('El código no coincide con la imagen.');
+            throw new CodigoErroneoException('El código no coincide con la imagen.');
         }
 
         if (mb_strpos($body, 'EL código no coincide con la imagen.') !== false)
         {
-            throw new Error('El código no coincide con la imagen.');
+            throw new CodigoErroneoException('El código no coincide con la imagen.');
         }
 
         $dom = new Dom();
@@ -86,6 +88,7 @@ class ParseContribuyente
         $firmaPersonal = [];
         $actividadEconomica = '';
         $registroVencido = false;
+        $condicion = '';
 
         if ($tablesCount == 3)
         {
@@ -161,7 +164,7 @@ class ParseContribuyente
 
         $razonSocial = explode('(', $fontText)[0];
 
-        return trim(explode('&nbsp;', $razonSocial)[1]);
+        return trim(strval(explode('&nbsp;', $razonSocial)[1]));
     }
 
     /**
@@ -204,7 +207,7 @@ class ParseContribuyente
     /**
      * @param  string  $table
      *
-     * @return \Illuminate\Support\Collection
+     * @return array<array<string, string>>
      */
     protected function parseFirmaPersonal(string $table)
     {
@@ -244,7 +247,7 @@ class ParseContribuyente
         $actividadEconomicaText = str_replace('Actividad Económica:', '', $actividadEconomicaText);
         $actividadEconomicaText = str_replace('Actividad EconÃ³mica:', '', $actividadEconomicaText);
 
-        return trim($actividadEconomicaText);
+        return trim(strval($actividadEconomicaText));
     }
 
     /**
@@ -291,13 +294,13 @@ class ParseContribuyente
         $condicionText = str_replace('Condición:', '', $condicionText);
         $condicionText = str_replace($actividadEconomica, '', $condicionText);
 
-        return trim($condicionText);
+        return trim(strval($condicionText));
     }
 
     /**
-     * @return array
+     * @return array<string, array<array<string, string>>|bool|string>
     */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'rif'                   => $this->rif,
