@@ -1,3 +1,5 @@
+![](https://banners.beyondco.de/Parse%20Contribuyente.png?theme=light&packageManager=composer+require&packageName=trienlace%2Fparse-contribuyente&pattern=circuitBoard&style=style_1&description=A+parser+for+the+SENIAT+Contribuyente+search+page&md=1&showWatermark=0&fontSize=100px&images=https%3A%2F%2Fwww.php.net%2Fimages%2Flogos%2Fnew-php-logo.svg)
+
 # A Parser for the SENIAT Contribuyente search page
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/trienlace/parse-contribuyente.svg?style=flat-square)](https://packagist.org/packages/trienlace/parse-contribuyente)
