@@ -1,12 +1,12 @@
 <?php
 
-namespace Trienlace\ParseContribuyente;
+namespace Wilsenhc\ParseContribuyente;
 
 use PHPHtmlParser\Dom;
 use PHPHtmlParser\Options;
 
-use Trienlace\ParseContribuyente\Exceptions\CodigoErroneoException;
-use Trienlace\ParseContribuyente\Exceptions\ContribuyenteNoExisteException;
+use Wilsenhc\ParseContribuyente\Exceptions\CodigoErroneoException;
+use Wilsenhc\ParseContribuyente\Exceptions\ContribuyenteNoExisteException;
 
 class ParseContribuyente
 {
