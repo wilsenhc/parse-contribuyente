@@ -1,8 +1,8 @@
 <?php
 
-use Trienlace\ParseContribuyente\Exceptions\CodigoErroneoException;
-use Trienlace\ParseContribuyente\Exceptions\ContribuyenteNoExisteException;
-use Trienlace\ParseContribuyente\ParseContribuyente;
+use Wilsenhc\ParseContribuyente\Exceptions\CodigoErroneoException;
+use Wilsenhc\ParseContribuyente\Exceptions\ContribuyenteNoExisteException;
+use Wilsenhc\ParseContribuyente\ParseContribuyente;
 
 test('parse contribuyente natural', function () {
     $archivo = file_get_contents(__DIR__ . '/html/natural.html');

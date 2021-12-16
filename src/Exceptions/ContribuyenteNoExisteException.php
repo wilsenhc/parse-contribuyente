@@ -1,6 +1,6 @@
 <?php
 
-namespace Trienlace\ParseContribuyente\Exceptions;
+namespace Wilsenhc\ParseContribuyente\Exceptions;
 
 use Exception;
 
