@@ -17,7 +17,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "paquettg/php-html-parser": "^3.1",
-        "phpstan/phpstan": "^0.12.93"
+        "phpstan/phpstan": "1.2"
     },
     "autoload": {
         "psr-4": {
@@ -30,7 +30,7 @@
         }
     },
     "require-dev": {
-        "pestphp/pest": "^1.11"
+        "pestphp/pest": "^1.21"
     },
     "replace": {
         "trienlace/parse-contribuyente": "1.*"
