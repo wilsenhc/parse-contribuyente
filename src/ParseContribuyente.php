@@ -2,8 +2,8 @@
 
 namespace Wilsenhc\ParseContribuyente;
 
-use PHPHtmlParser\Dom;
-use PHPHtmlParser\Options;
+use Wilsenhc\ParseContribuyente\HtmlParser\Dom;
+use Wilsenhc\ParseContribuyente\HtmlParser\Options;
 
 use Wilsenhc\ParseContribuyente\Exceptions\CodigoErroneoException;
 use Wilsenhc\ParseContribuyente\Exceptions\ContribuyenteNoExisteException;
@@ -51,7 +51,7 @@ class ParseContribuyente
      */
     protected function parseContribuyente(string $body)
     {
-        $body = utf8_encode($body);
+        $body = mb_convert_encoding($body, 'UTF-8', 'windows-1252');
         // $body = explode('<!-- VISUALIZAR RIF -->', $body)[1];
         $body = str_replace('windows-1252', 'UTF-8', $body);
         $body = str_replace('</HTML>', '', $body);
