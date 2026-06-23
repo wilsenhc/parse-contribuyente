@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Drop support for PHP 7.x; now requires PHP 8.1+.
+- Drop support for PHP 7.x; now requires PHP 8.2+.
 - Replace the deprecated `paquettg/php-html-parser` dependency with a custom,
   dependency-free HTML parser shipped under the
   `Wilsenhc\ParseContribuyente\HtmlParser` namespace.
