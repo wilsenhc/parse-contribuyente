@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-23
+
 ### Changed
 - Drop support for PHP 7.x; now requires PHP 8.2+.
 - Replace the deprecated `paquettg/php-html-parser` dependency with a custom,
@@ -16,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `phpstan/phpstan` to `require-dev` and bump to `^1.12`.
 - Replace `utf8_encode` with `mb_convert_encoding` in `ParseContribuyente` to
   avoid the `utf8_encode` deprecation on PHP 8.2+.
+- Update CI workflow to test on PHP 8.2, 8.3 and 8.4, and bump
+  `actions/checkout` to `v4`.
+- Stop tracking `composer.lock` and add it to `.gitignore` so each PHP version
+  in the matrix resolves dependencies against its own platform.
 
 ### Removed
 - `paquettg/php-html-parser` composer dependency.
